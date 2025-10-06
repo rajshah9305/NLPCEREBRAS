@@ -13,16 +13,14 @@ export default function SandpackPreview({ code }: SandpackPreviewProps) {
 
   // Add loading state
   const [isLoading, setIsLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
-    setHasError(false);
     
     // Reset loading state after a delay
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [code]);
@@ -132,26 +130,6 @@ body {
     );
   }
 
-  if (hasError) {
-    return (
-      <div className="w-full h-full flex items-center justify-center bg-red-50">
-        <div className="text-center">
-          <div className="text-red-500 text-4xl mb-4">⚠️</div>
-          <p className="text-red-600">Preview failed to load</p>
-          <button 
-            onClick={() => {
-              setHasError(false);
-              setIsLoading(true);
-            }}
-            className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-          >
-            Retry
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="h-full w-full">
       <Sandpack
@@ -178,7 +156,6 @@ body {
           recompileDelay: 500,
           initMode: "lazy",
           showRefreshButton: false,
-          
         }}
         customSetup={{
           dependencies: {
@@ -186,13 +163,6 @@ body {
             "react": "^18.2.0",
             "react-dom": "^18.2.0",
           },
-        }}
-        onError={(error: Error) => {
-          console.error('Sandpack error:', error);
-          setHasError(true);
-        }}
-        onLoad={() => {
-          setIsLoading(false);
         }}
       />
     </div>
