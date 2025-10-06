@@ -9,6 +9,6 @@
     }
   },
   "env": {
-    "CEREBRAS_API_KEY": "@cerebras_api_key"
+    "CEREBRAS_API_KEY": "@your_cerebras_api_key"
   }
 }
